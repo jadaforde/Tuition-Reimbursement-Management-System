@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+table, th, td {
+  border:1px solid black;
+}
+
+li {
+  display: inline;
+}
+* {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: center;
+        text-decoration-color: whitesmoke;
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        }
+
+</style>
+<style>
+  .menu-btn {
+   background-color: #040008;
+   color: white;
+   padding: 16px;
+   font-size: 20px;
+   font-weight: bolder;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   border: none;
+}
+.dropdown-menu {
+   position: relative;
+   display: inline-block;
+}
+.menu-content {
+   display: none;
+   position: absolute;
+   background-color: #017575;
+   min-width: 160px;
+   z-index: 1;
+}
+nav{
+   background-color: #017575;
+}
+.links,.links-hidden{
+   display: inline-block;
+   color: rgb(255, 255, 255);
+   padding: 12px 16px;
+   text-decoration: none;
+   font-size: 18px;
+   font-weight: bold;
+}
+.links-hidden{
+   display: block;
+}
+.links{
+   display: inline-block;
+}
+.links-hidden:hover,.links:hover {
+   background-color: rgb(8, 107, 46);
+}
+.dropdown-menu:hover .menu-content {
+   display: block;
+}
+.dropdown-menu:hover .menu-btn {
+   background-color: #3e8e41;
+}
+</style>
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style ="bg-dark background-size: 10%; background-repeat: repeat; background-image: url(https://www.learnupon.com/wp-content/uploads/DEI-animation.gif);">
+
+
+  <nav>
+    <a class="links" href="OWelcome.html">HOME</a>
+    <!-- <a class="links" href="#">EMPLOYEES</a>
+    <a class="links" href="#">CAREER</a> -->
+    </div>
+    </div>
+    </nav>
+  
+
+
+    </style>
+    <link rel="stylesheet" href="One.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body>
+
+   <div class="card">
+      <div class="card-header">
+         Reimbursement Form
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">Tuition Reimbusement Application</h3>
+        
+ <h5>Employee Information</h5>
+
+    <label for="idInput">Employee Id:</label>
+    <input type="number" id="idInput"><br>
+    <label for="dateInput">Date:</label>
+    <input type="datetime" id="dateInput"><br>
+    <label for="descriptionInput">Description:</label>
+    <input type="text" id="descriptionInput"><br>
+    <label for="costInput">Cost:</label>
+    <input type="text" id="costInput"><br>
+    <label for="locationInput">Location:</label>
+    <input type="text" id="locationInput"><br>
+    <ul style="border: #040008; box-sizing: border-box;"> 
+      <label for="eventInput">Event Id:</label>
+    <input type="text" id="eventInput"><br>
+   *MAXIMUM REIMBURSEMENT AMOUNT PER EVENT*
+    
+    </ul>
+    <table style="width:100%">
+      <tr>
+        <td>Certification</td>
+        <td>Technical Training</td>
+        <td>University Course</td>
+        <td>Certification prep</td>
+        <td>Seminar</td>
+        <td>Other</td>
+      </tr>
+      <tr>
+        <td>$1000</td>
+        <td>$900</td>
+        <td>$800</td>
+        <td>$750</td>
+        <td>$600</td>
+        <td>$300</td>
+      </tr>
+    </table><br>
+    
+    
+    <button onclick="addRequest()">Submit</button>
+
+    <p id="response"></p>
+      
+    
+      </div>
+    </div> 
+
+
+</body>
+<script>
+async function addRequest() {
+        const idValue = document.getElementById("idInput").value;
+        const dateValue = document.getElementById("dateInput").value;
+        const descriptionValue = document.getElementById("descriptionInput").value;
+        const costValue = document.getElementById("costInput").value;
+        const locationValue = document.getElementById("locationInput").value;
+        const eventValue = document.getElementById("eventInput").value;
+        
+        console.log(idInput);
+        console.log(dateInput);
+        console.log(descriptionInput);
+        console.log(costInput);
+        console.log(locationInput);
+        console.log(eventInput);
+
+        id = sessionStorage.getItem("e_id");
+         console.log(id);
+
+        const url1 = `http://localhost:7001/approval/:id`;
+
+        const approvaldata = {
+         "superV": false,
+         "departH":false,
+         "BenCo":false
+          } 
+
+
+
+        const httpResponse = await fetch(url1, {
+            method: "POST",
+            body: JSON.stringify(approvaldata)
+          });
+
+        const body = await httpResponse.json();
+
+        console.log( "Approval:", body);  
+
+
+        
+        const url2 = `http://localhost:7001/grade/id`;
+
+        const gradedata = {
+         "presentation": false,
+         "letter":false
+          } 
+
+
+
+        const httpResponse2 = await fetch(url2, {
+            method: "POST",
+            body: JSON.stringify(gradedata)
+          });
+
+        const body2 = await httpResponse2.json();
+
+        console.log("grade", body2);        
+        
+        
+
+console.log("Body app ", body.app_id);
+
+        const formdata = {
+            e_id: idValue,
+            date: dateValue,
+            description: descriptionValue,
+            cost: costValue,
+            location: locationValue,
+            event_id: eventValue,
+            grade_id: body2.grade_id,
+            approval: body.app_id
+      
+
+        };
+        console.log(JSON.stringify(formdata));
+        const url = `http://localhost:7001/form/` + id;
+
+        const httpResponse3 = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(formdata)
+          });
+
+        const body3 = await httpResponse3.json();
+
+        console.log("Database:", body3);
+        
+
+        document.getElementById("response").innerHTML = (body && body != {}) ? "Request Successfully Added!" : "Request Failed";
+
+        
+}
+
+</script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>   
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home Page</title>
+    <style>
+      
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: inline;
+}
+* {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: center;
+        text-decoration-color: whitesmoke;
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        }
+     
+/* 
+        <nav class="topnav">
+        <a href="OLogin.html">
+        <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo" class="logo" width="50" height="45">      
+        <a href="OHead.html">Department</a>
+        <a href="OForm.html">Benefit Resources</a>
+        <a class="active" href="OEmp.html">Home</a>
+
+</nav> */
+
+</style>
+</head>
+<body style ="background-color:teal; background-size: 10%; background-repeat: repeat; background-image: url(https://www.learnupon.com/wp-content/uploads/DEI-animation.gif);">
+    <!-- <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo"
+    width="200"  height="200"> -->
+
+
+    </style>
+    <link rel="stylesheet" href="One.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body>
+ 
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+  <div class="container-fluid" style="bg-dark">
+    
+  
+  <button style="background-color: teal;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Benefit Resources
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a on class="dropdown-item" href="OForm.html">New Request</a>
+    <!-- <a class="dropdown-item" href="OForm.html">View Request</a> -->
+    <a class="dropdown-item"  href="approval.html">Reimbursal</a>
+    <a class="dropdown-item" onclick="see()" id="a" >Classified Information</a>
+    <a class="dropdown-item" href="OSignin.html">Log Out</a>
+     
+    </div>
+<img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo" class="logo" width="75" height="75">  
+  </div>
+</nav>
+
+<div class="card">
+  <div style="background-color: grey; font-style: oblique;" class="container">
+    <h3>Welcome Back!</h3>
+    <table  id="list"></table>
+    <!-- <table  id="user"></table> -->
+    
+    
+       <!-- <label for="idInput"></label> -->
+     <button id="id" onclick="tab();">View</button>
+     <!-- <button id="id" onclick="teb();">View</button> -->
+  </table>
+  </div>
+</div>
+<!-- <div class="card1">
+  <div style="background-color: grey; font-style: oblique;" class="container">
+    <h3>Welcome Back!</h3>
+    <table  id="list"></table>
+    <table  id="user"></table>
+    
+    
+       <<label for="idInput"></label> -->
+     <!-- <button id="id" onclick="tab();">View</button> -->
+     <!-- <button id="id1" onclick="teb();">View</button>
+  </table>
+  </div>
+</div>  -->
+
+ <script>
+  // sessionStorage.getItem("form_id");
+  //sessionStorage.setItem("user", .body1id);
+
+
+
+    var id = sessionStorage.getItem("d_id");
+    console.log(id);
+     async function see(){
+    if(id >= 2)
+        {
+          console.log(id);
+          document.getElementById("a").style.display="none";
+          window.location ="ODepartLocat.html"
+        }else{
+          alert("Unauthorized Request");
+        }        
+  }
+  async function tab() {
+   
+
+
+   const url4 = "http://localhost:7001/employee/"+id;
+   const response = await fetch(url4);
+     var data1 = await response.json();
+       console.log(data1);
+       show(data1);
+   } 
+   
+   function show(data1) {
+       let tab = 
+       `<tr >
+         <th >Employee Id</th>          
+         <th>Employee Name</th>
+         </tr>`;
+ 
+         for (let r of Object.keys(data1)) {
+       tab += `<tr> 
+       <td>${data1.e_id} </td>
+       <td>${data1.name}</td>
+       </tr>`;
+      break;
+      }
+   
+       document.getElementById("list").innerHTML = tab;
+    }
+
+  // async function teb() {
+
+  //  const url5 = "http://localhost:7001/form";
+  //  const response = await fetch(url5);
+  //    var data2 = await response.json();
+  //      console.log(data2);
+  //      show(data2);
+  //  } 
+   
+  //  function show(data2) {
+  //      let teb = 
+  //      `<tr >
+  //        <th >Form Id</th>          
+  //        <th>Description</th>
+  //        </tr>`;
+ 
+  //        for (let r of Object.keys(data2)) {
+  //      teb += `<tr> 
+  //      <td>${data2.form_id} </td>
+  //      <td>${data2.description}</td>
+  //      </tr>`;
+  //      break;
+  //     }
+   
+  //      document.getElementById("user").innerHTML = teb;  
+ 
+  //   }
+    
+ </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>   
+</body>
+</html>

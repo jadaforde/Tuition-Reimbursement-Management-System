@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SignIn</title>
+    <style>
+
+       h1{font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, 
+       sans-serif;
+    text-align: center;}
+    </style> 
+   
+    
+
+
+    <link rel="stylesheet" href="One.css">  
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+</head>
+<body style ="background-color:teal; background-size: 10%; background-repeat: repeat; background-image: url(https://www.learnupon.com/wp-content/uploads/DEI-animation.gif);">
+  <!-- <nav class="topnav">
+    <a href="OHome.html">
+ <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo" class="logo" width="50" height="50">      
+   <a href="OHead.html">Department</a>
+   <a href="OEmp.html">Welcome</a>
+   <a class="active" href="OForm.html">Benefit Resources </a> 
+
+</nav> -->
+
+    <!-- <h1 style="float:  inline-end;position: relative;"> 
+        
+       Warehouse
+    </h1>
+    -->
+      <div class="card" style="width: 18rem; margin-left: 5%; text-align: center; position: relative; border-width: medium; border-color: black; border-style: solid; background-color: lightgray;">
+        <div class="card-body">
+            <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo"
+        width="200"  height="200">
+          <h5 class="card-title">Sign In</h5>
+          <label for="usernameInput">Username:</label>
+    <input type="text" id="usernameInput"><br>
+    <label for="passwordInput">Password:</label>
+    <input type="password" id="passwordInput"><br>
+   
+        <a id="login" onclick="login()"  class="btn btn-primary" role="button">Log On</a>
+      <h7>
+          <p class="card-text">By logging on, you agree to the Terms of Service, Privacy Statement, and Cookie Notice.</p></h7>
+          <a href="#" class="card-link">Forgot Password or Username?</a><br>
+          <a href="#" class="card-link">New User?</a>
+        </div>
+      </div>
+
+<script>
+  
+async function login(){ 
+    let usernameValue = document.getElementById("usernameInput").value;
+    let passwordValue = document.getElementById("passwordInput").value;
+    console.log(usernameValue + passwordValue);
+    const headers = new Headers();
+    // headers.set('Authorization',usernameValue + ":" + passwordValue); 
+    const url = `http://localhost:7001/employee`;
+    const httpresponse = await fetch(url);
+    const response = await httpresponse.json()
+    console.log(response);
+
+  let valid = false;
+  let info = null;
+
+    for(let r of response){
+     if (r.username == usernameValue && r.password == passwordValue) {
+            info = r;
+            valid = true;
+            // console.log("Inside if loop");
+            // console.log(valid);
+            // console.log(info);
+            break;
+     }else{
+        console.log('Failure');
+     }         
+    }    
+    
+  
+    console.log(valid);
+           if(valid){
+            sessionStorage.setItem("e_id", info.e_id);
+            sessionStorage.setItem("username", info.username);
+            sessionStorage.setItem("password", info.password);
+            sessionStorage.setItem("name", info.name);
+            sessionStorage.setItem("benCo", info.benCo);
+            sessionStorage.setItem("form_id", info.form_id);
+            sessionStorage.setItem("d_id", info.d_id);
+            // console.log(sessionStorage.getItem("e_id"));
+            // sessionStorage.setItem("super_id", info.super_id);
+            // sessionStorage.setItem("lead_id", info.lead_id);
+            // sessionStorage.setItem("role", info.role);
+            // sessionStorage.setItem("app_id", info.app_id);
+            //console.log(super_id);
+            //console.log(lead_id);
+            //console.log(role);
+            //console.log(app_id);
+             window.location = "Owelcome.html";
+           } else {
+             alert("Opps somethings not right.");
+            console.log("Failure"); 
+           }
+          }
+
+          
+   </script>
+</body>
+</html>

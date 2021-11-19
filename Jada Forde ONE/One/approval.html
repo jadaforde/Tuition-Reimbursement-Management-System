@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Request</title> 
+    <style>
+      
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+/* request by user */
+li {
+  display: inline;
+}
+* {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: center;
+        text-decoration-color: whitesmoke;
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        }
+
+
+
+</style>
+</head>
+<body style ="background-color:teal; background-size: 10%; background-repeat: repeat; background-image: url(https://www.learnupon.com/wp-content/uploads/DEI-animation.gif);">
+  <!-- <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo"
+  width="200"  height="200"> -->
+
+
+  </style>
+  <link rel="stylesheet" href="One.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body onload="current()">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid" style="bg-dark">
+          
+        
+        <button style="background-color: teal;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Benefit Resources
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="OForm.html">Form</a>
+          <a class="dropdown-item" href="ODepartLocat.html">Classified Information</a>
+          <a class="dropdown-item" href="approval.html">Reimbursal</a>
+          <a class="dropdown-item" href="OSignin.html">Log Out</a>
+           
+          </div>
+        <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo" class="logo" width="75" height="75">  
+        </div>
+        </nav>
+        </body>
+        <!-- <h2>Request</h2> -->
+        <div class="card">
+              <div class="container">
+              <h3><b>Reimbursement</b></h3> 
+              <p><h4> Approval List</h4></p> 
+              
+            </div>
+          </div>
+           
+          
+          <div class="card">
+            <div class="container">
+              <table  id="list"></table>
+              
+                 <!-- <label for="idInput"></label>
+               <button id="id" onclick="tab();">View</button> -->
+            </table>
+            </div>
+          </div>
+    <script>
+    var id = sessionStorage.getItem("e_id");
+
+    var id = sessionStorage.getItem("d_id");
+    var D = id;
+    console.log("This is the global role defined outside the block "+D);
+    
+async function current() {
+   
+
+
+  const url4 = "http://localhost:7001/approval";
+  const response = await fetch(url4);
+    var data1 = await response.json();
+      console.log(data1);
+      show(data1);
+  } 
+  
+  function show(data1) {
+      let tab = 
+      `<tr >
+        <th >Approval Id</th>          
+        <th>Department Head</th>
+        <th>Supervisor</th>
+        <th>Benefits Coordinator</th>
+        </tr>`;
+
+        for (let r of data1) {
+      tab += `<tr> 
+      <td>${r.app_id} </td>
+      <td>${r.departH}</td>
+      <td>${r.superV}</td>
+      <td>${r.BenCo} </td> 
+      </tr>`;
+     }
+  
+      document.getElementById("list").innerHTML = tab;
+
+//     async function current(){
+//         const url="http://localhost:7001/employee/"+D; //GET USER BY POSITION//
+//         const httpResponse =await fetch(url);
+//         const body = await httpResponse.json();
+//         console.log(body);
+        
+
+
+//         const url1="http://localhost:7001/form/"+D;  //GET FORM BY POSITION//
+//         const httpResponse1 =await fetch(url1);
+//         const body1 = await httpResponse1.json();
+//         console.log(body1);
+       
+        
+       
+
+//         const url2= "http://localhost:7001/form/"+id; //GET FORM BY USER ID//
+//         const httpResponse2 =await fetch(url2);
+//         const body2 = await httpResponse2.json();
+//         console.log(body2);
+
+       
+//  }
+
+
+    // var id =  sessionStorage.getItem("e_id ");
+    // var role = sessionStorage.getItem("d_id");    
+    
+    let formId =sessionStorage.getItem("form_id");
+    
+
+  async function getUser(){
+    
+    let id=0;
+    
+    const url="http://localhost:7001/employee/"+id;//USER BY ID//
+        const httpResponse =await fetch(url);
+        const body = await httpResponse5.json();
+        un = body.username;
+       
+
+   
+   
+        const url1="http://localhost:7001/form/"+formId;//FORM BY FORM ID//
+        const httpResponse1 =await fetch(url1);
+        const body1 = await httpResponse1.json();
+       
+   
+
+        
+        if(role == 2)
+        {
+            document.getElementById("ADT").innerHTML="Supervisor"
+        }
+
+
+        if(role == 3)
+        {
+            document.getElementById("ADT").innerHTML="Department Head"
+        }
+
+
+        if(role == 4)
+        {
+            document.getElementById("ADT").innerHTML="Benefits Coordinator"
+        }
+
+        document.getElementById("Username").innerHTML="Username "+un;
+        document.getElementById("Employee Identification").innerHTML="Employee Identification "+id;
+
+  
+
+        document.getElementById("time").innerHTML="Time- "+body4.request_time;
+        document.getElementById("date").innerHTML="Date - "+body4.eventDate;
+        document.getElementById("location").innerHTML="Location - "+body4.eventLocation;
+        document.getElementById("description").innerHTML="Description- "+body4.eventDescription;
+       
+        accountID=body.employee_id;
+       
+        document.getElementById("EventType").value=body4.eventType;
+        document.getElementById("cost").innerHTML="Cost- "+body4.eventCost;
+        document.getElementById("grade").innerHTML="Grade- "+(body4.grade*20);
+        document.getElementById("inputGroupFile04").innerHTML="File- "+body4.workJust;
+        document.getElementById("estimate").innerHTML="Estimate $"+body4.reimburstmentamount;
+
+
+        // if(body.postion<=2)
+        // {
+        //   document.getElementById("approve").style.display="none";
+        // }
+        // // usergetBody(body)
+        // document.getElementById("ampup").style.display="block";
+  } 
+
+  
+ 
+async function alter()
+  {
+    if(inID==4)
+    {
+      document.getElementById("ampup").display="none";
+    let new$=document.getElementById("ampup").value;
+    console.log(new$);
+
+
+    let time =document.getElementById("time").value;
+    let date=document.getElementById("date").value;
+    let location=document.getElementById("location").value;
+    let description=document.getElementById("description").value;
+    let accountID=id;
+    let EventType= document.getElementById("EventType").value;
+    let cost=document.getElementById("cost").value;
+    let grade1=document.getElementById("grade").value;
+    let workJus=document.getElementById("inputGroupFile04").value;
+    let est= document.getElementById("ampup").value;
+    console.log(est);
+
+    const data={
+        requestID:requestIDSENT,
+        request_time: time,
+        eventDate: date,
+        eventLocation: location,
+        eventDescription:description,
+        eventCost: cost,
+        employeeINFO:accountID,
+        eventType: EventType,
+        grade: grade1,
+        workJust: workJus,
+        reimburstmentamount: est
+    }
+
+
+      console.log("wait is done");
+
+    const url="http://localhost:7000/request/"+requestIDSENT;
+    console.log(url);
+    const httpResponse = await fetch(url,
+    {
+      method:"PATCH",body:JSON.stringify(data)
+    });
+      const body = await httpResponse.json();
+    document.getElementById("response").innerHTML = (body && body != {}) ? "Request Successfully Updated!" : "request Update Failed";
+    // window.location.reload();
+
+
+    }
+  
+    
+  }
+
+  async function viewall()
+  {
+    window.location.href="allApprove.html";
+  }
+
+  // var id =  sessionStorage.getItem("e_id ");
+    // var role = sessionStorage.getItem("d_id");    
+    
+    // let formId =sessionStorage.getItem("form_id");
+
+
+  async function Approve(){
+      
+        if(role == 2){
+        const data = {
+        "superV":true,
+        "departH":false,
+        "BenCo":false
+        }
+      }
+
+        if(role == 3){
+        const data = {
+        "superV":false,
+        "departH":true,
+        "BenCo":false
+        }
+      }
+
+        if(role == 4){
+        const data={
+        "superV":false,
+        "departH":false,
+        "BenCo":true
+       }
+      }
+                    
+        const data={
+        "superV": null,
+        "departH":null,
+        "BenCo":true
+      }
+    
+      const url="http://localhost:7001/approval/"+id+"/rank/"+role;
+      console.log(url);
+      const httpResponse = await fetch(url,{ method:"PATCH",body:JSON.stringify(data)});
+
+      const body = await httpResponse.json();
+
+
+        document.getElementById("response").innerHTML = (body && body != {}) ? "Request Successfully Approved!" : "Approval Failed";
+    
+
+
+//////////////////////////////////////////////////////////////// CODE ENDS HERE ////////////////////////////////////////////
+
+
+//   }
+  
+
+
+      //   var position=sessionStorage.getItem("d_id");
+      //   var id=sessionStorage.getItem("e_id");
+      //   console.log(id + position);
+
+
+      //   async function current(data,status){
+    
+      // let tab =
+      // `<tr>
+      //     <thead class="thead-light">
+      //         <th scope="col">Request Id</th>
+      //         <th scope="col">Supervior</th>
+      //         <th scope="col">Department Head</th>
+      //         <th scope="  ">Benefits Coordinator<th>
+           
+      //       </tr>
+      //       </thread>`;
+       
+      //     for (let r of data) {  
+      //       var a=1;
+            
+      //            tab += 
+      //             `<thrad class="thead-light"><tbody>
+      //             <tr> 
+      //                 <td>${r.e_id} </td>
+      //                 <td>${r.lead_id}</td>
+      //                 <td>${r.super_id}</td>  
+      //                 <td>${r.benCO}</td>   
+      //                 <td><button onclick=caller(${r.e_id})>View request ${r.e_id} </button></td>       
+      //             </tr>
+      //             <tbody>
+      //               <thead>`;
+      //             a++
+      //     }
+      //     document.getElementById("list").innerHTML = tab;
+  
+     
+     
+      
+  // }
+// async function caller(emp)
+// {
+
+// sessionStorage.setItem("id", position);
+// sessionStorage.setItem("e_id", emp);
+// // window.location.href="approval.html";
+
+
+// }
+
+
+
+
+
+//  async function views(){
+    
+//         // const url="http://localhost:7000/approval";//get user id
+//         // const httpResponse =await fetch(url);
+//         // console.log(httpResponse);
+//         // const body = await httpResponse.json();
+        
+//         let status;
+//         const url3="http://localhost:7000/user/"+D
+//         const httpResponse3 =await fetch(url3);
+//         const body3 = await httpResponse5.json();
+//         console.log(body3);
+//         position = body.d_id;
+//         console.log(id+"<rank++ bod "+postion+ "    "+body3.benCO);
+//         if(postion == 2)
+//         {
+//             if(body3.s ==false)
+//             {
+//                statusA="Need viewing";
+//           }
+//             else{
+//               //  document.getElementById("stat").innerHTML="approved";
+//                statusA="approved";
+//           }
+       
+//         }
+//         if(postion==3)
+//         {
+//           if(bodyGET.departmentH==false)
+//           {
+//               //  document.getElementById("stat").innerHTML="Need viewing";
+//                statusA="Need viewing";
+//           }
+//           else{
+//               //  document.getElementById("stat").innerHTML="approved";
+//                statusA="approved";
+//           } 
+//         }
+//         if(postion==4)
+//         { 
+//           if(bodyGET.benCO==false)
+//           {
+//               //  document.getElementById("stat").innerHTML="Need viewing";
+//                statusA="Need viewing";
+//           }
+//           else{
+//               //  document.getElementById("stat").innerHTML="approved";
+//                status="approved";
+//           }
+       
+          
+//         }
+
+
+
+
+
+
+// function caller(a){
+//     console.log("this was called"+a)
+// }
+
+  }
+  }
+</script>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>   
+</body>
+</html>
+        

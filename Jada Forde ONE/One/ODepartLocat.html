@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Classified</title>
+    <style>
+      
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+
+li {
+  display: inline;
+}
+* {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: center;
+        text-decoration-color: whitesmoke;
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        }
+   .openButton{
+     position: relative;
+   }     
+
+
+   /* style="bg-dark" */
+
+</style>
+</head>
+<body onload="getRequest()" style ="background-color:teal; background-size: 10%; background-repeat: repeat; background-image: url(https://www.learnupon.com/wp-content/uploads/DEI-animation.gif);">
+  <!-- <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo"
+  width="200"  height="200"> -->
+
+
+  </style>
+  <link rel="stylesheet" href="One.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<body>
+
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+<div class="container-fluid">
+  
+
+<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  Benefit Resources
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  <a class="dropdown-item" href="approval.html">Reimbursal</a>
+  <a class="dropdown-item" href="OForm.html">Form</a>
+  <a class="dropdown-item" href="ODepartLocat.html">Classified Information</a>
+  <a class="dropdown-item" href="OSignin.html">Log Out</a>
+   
+  </div>
+<img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo" class="logo" width="75" height="75">  
+</div>
+</nav>
+</body>
+<!-- <h2>Request</h2> -->
+
+<div  class="card font-italic">
+  <!-- <img src="img_avatar.png" alt="Avatar" style="width:100%"> -->
+  <div class="container">
+    <h3><b>Pending Request</b></h3> 
+    <p><h4 id="approvalT"> Recent reimbursement request</h4></p> 
+    
+  </div>
+</div>
+ 
+
+<div class="card">
+  <!-- <img src="img_avatar.png" alt="Avatar" style="width:100%"> -->
+  <div class="container">
+    <table id="form"></table>
+   <a id="httpResponse7" ></a>
+       <!-- <label for="idInput"></label>
+     <button id="id" onclick="getRequest();">View</button> -->
+  </table>
+  </div>
+</div>
+
+
+
+   
+    <div class="openBtn">
+     
+    </div>
+    <div class="loginPopup">
+      <div class="formPopup" id="popupForm">
+        <form action="/action_page.php" class="formContainer">
+          <h2>Grades</h2>
+          <!-- <label for="email">
+            <strong>E-mail</strong>
+          </label>
+          <input type="text" id="email" placeholder="Your Email" name="email" required>
+          <label for="psw">
+            <strong>Password</strong>
+          </label> style="width: 35%; color: whitesmoke; background-color: black;" -->
+          <table id="grade" class="table table-bordered table-hover table-active" >
+      
+            
+        </table>
+          <input type="text" id="eg" placeholder="Employee Id" name="eg" required>
+          <button onclick="view()" class="btn">Search</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+    </div>
+    <button  style="margin-left: 45%; background-color: black;" class="openButton" onclick="openForm()"><strong>Grade Finder</strong></button>
+ 
+
+<script>
+  
+  var id =  sessionStorage.getItem("e_id ");
+  var role = sessionStorage.getItem("d_id");    
+    
+    let formId =sessionStorage.getItem("form_id");
+
+async function getRequest() {
+   
+
+
+ const url = "http://localhost:7001/form";
+
+
+  const response = await fetch(url);
+  var data = await response.json();
+    console.log(data);
+    show(data);
+} 
+
+function show(data) {
+    let tab = 
+        `<tr >
+          <th >Form Id</th>          
+          <th>Date</th>
+          <th>Cost</th>
+          <th>Description</th>
+          <th>Employee Id</th>
+          <th>Aprroval Id</th>
+
+         </tr>`;
+
+         for (let r of data) {
+        tab += `<tr> 
+    <td>${r.form_id} </td>
+    <td>${r.date}</td>
+    <td>${r.cost}</td>
+    <td>${r.description}</td>
+    <td>${r.e_id} </td> 
+    <td>${r.app_id} </td> 
+    <td> <a id="login" onclick="Approve(${r.app_id})"  class="btn btn-primary" role="button">Approve</a> </td> 
+    <td> <a id="login" onclick="caller()"  class="btn btn-primary" role="button">Deny</a> </td> 
+</tr>`;
+    }
+
+    document.getElementById("form").innerHTML = tab;
+    
+  var rank =  sessionStorage.getItem("d_id");
+  var name = sessionStorage.getItem("username"); 
+  console.log(rank + " and " + name)
+    if(rank == 2 ){
+      document.getElementById("approvalT").innerHTML = "SUPERVISOR";
+    }
+    else if(rank == 3){
+      document.getElementById("approvalT").innerHTML = "DEPARTMENT HEAD";
+    }
+    else if(rank == 4){
+      document.getElementById("approvalT").innerHTML = "BENEFITS COORDINATOR";
+    }
+}
+    if (window.attachEvent) {window.attachEvent('onload', getRequest());}
+    else if (window.addEventListener) {window.addEventListener('load', getRequest(), false);}
+    else {document.addEventListener('load', getRequest(), false);}
+
+  
+async function view() {
+
+console.log("view");
+const httpResponse = await fetch("http://localhost:7001/grade/:id")
+
+console.log(httpResponse);
+const body = await httpResponse.json()
+console.log(body);
+console.log(grade);
+console.log(presentation);
+console.log(letter);
+// document.getElementById("grade").innerHTML = body.grade_id;
+// document.getElementById("presentation").innerHTML = body.presentation;
+// document.getElementById("letter").innerHTML = body.letter;
+document.getElementById("grade").innerHTML = grade;
+
+}
+    
+      function openForm() {
+        document.getElementById("popupForm").style.display = "block";
+      }
+      function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+      }
+
+// // This where is starts
+
+async function Approve(thisone)
+{
+console.log(thisone);
+}
+
+async function Approve(approval){
+
+  id = sessionStorage.getItem("e_id");
+  // console.log(formId);
+  console.log(approval);
+
+
+  console.log(id);
+  const url1="http://localhost:7001/approval/"+approval;//ALL FORMS//
+        const httpResponse1 =await fetch(url1);
+        // console.log(httpResponse1);
+        const body1 = await httpResponse1.json();
+        console.log(body1);
+        console.log(role);     
+  
+     let data;
+        
+      if(role == 2){
+        console.log("role 2");
+      data = {
+      "superV":true,
+      "departH":body1.departH,
+      "BenCo":body1.BenCo
+      }
+    }
+
+      if(role == 3){
+        console.log("role 3");
+      data = {
+      "superV": body1.superV,
+      "departH":true,
+      "BenCo":body1.BenCo      
+      }
+    }
+
+      if(role == 4){
+        console.log("role 4");
+      data={
+      "superV": body1.superV,
+      "departH":body1.departH,      
+      "BenCo":true
+     }
+   
+    }
+    console.log(data);
+    const url7="http://localhost:7001/approval/"+approval; //passing in as objects
+    // console.log(url7);
+    const httpResponse7 = await fetch(url7,{ method:"PATCH",body:JSON.stringify(data)});
+
+    const body7 = await httpResponse7.json();
+    console.log(body7);
+
+
+      document.getElementById("httpResponse7").innerHTML = (body7 && body7 != {}) ? "Request Successfully Approved!" : "Approval Failed"; 
+  
+  }
+</script>
+
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>   
+</body>
+</html>

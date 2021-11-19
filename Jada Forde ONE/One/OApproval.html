@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Request</title> 
+    <style>
+      
+        ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+/* request by user */
+li {
+  display: inline;
+}
+* {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        text-align: center;
+        text-decoration-color: whitesmoke;
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        }
+
+
+
+</style>
+<body onload="getRequest()" style ="background-color:teal; background-size: 10%; background-repeat: repeat; background-image: url(https://www.learnupon.com/wp-content/uploads/DEI-animation.gif);">
+    <!-- <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo"
+    width="200"  height="200"> -->
+  
+  
+    </style>
+    <link rel="stylesheet" href="One.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <body>
+  
+  
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+  <div class="container-fluid" style="bg-dark">
+    
+  
+  <button style="background-color: teal;" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Benefit Resources
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="approval.html">Reimbursal</a>
+    <a class="dropdown-item" href="OForm.html">Form</a>
+    <a class="dropdown-item" href="ODepartLocat.html">Classified Information</a>
+    <a class="dropdown-item" href="OSignin.html">Log Out</a>
+     
+    </div>
+  <img src="https://cdn.freebiesupply.com/logos/large/2x/the-warehouse-logo-png-transparent.png" alt="logo" class="logo" width="75" height="75">  
+  </div>
+  </nav>
+  </body>
+   
+</head>
+
+              <main class="container">
+        <div class="bg-light p-5 rounded">
+          <form>
+            <h3 id="ADT">Approval Dashboard </h3>
+            <div class="row">
+              <div class="col">
+                <a type="text" class="form-control" placeholder="First name" id="first">-</a>
+              </div>
+              <div class="col">
+                <a type="text" class="form-control" placeholder=" Account " id="accountID">-</a>
+              </div>
+            </div>
+    <script>
+var id=sessionStorage.getItem("e_id");
+var name = sessionStorage.getItem("name");    
+
+    async function getRequest(){
+
+
+      let rim = sessionStorage.getItem("d_id");
+    
+    let id=0;
+    
+    const url5="http://localhost:7001/employee/"+id;//get user id
+        const httpResponse5 =await fetch(url5);
+        const body5 = await httpResponse5.json();
+       
+
+    if(rim == 2)
+        {
+            document.getElementById("ADT").innerHTML="Supervisor Approval Dashboard"
+        }
+        if(rim == 3)
+        {
+            document.getElementById("ADT").innerHTML="Department Head Approval Dashboard"
+        }
+        if(rim == 4)
+        {
+            document.getElementById("ADT").innerHTML="Benco Approval Dashboard"
+        }
+
+        document.getElementById("first").innerHTML="Employe name- "+name;
+        document.getElementById("accountID").innerHTML="Employee acc# "+id;
+
+    }
+
+        async function Approve(){
+
+
+      
+      
+        if(rim == 2){
+        const data={
+        "directS":true,
+        "departmentH":false,
+        "benCO":false
+        }
+      }
+
+        if(rim == 3){
+        const data={
+        "directS":false,
+        "departmentH":true,
+        "benCO":false
+        }
+      }
+
+        if(rim == 4){
+        const data={
+        "directS":false,
+        "departmentH":false,
+        "benCO":true
+       }
+                    }
+                    
+   const data={
+    "directS": null,
+    "departmentH":null,
+    "benCO":true
+   }
+    
+}
+
+    
+    </script>
+</body>
+</html>
